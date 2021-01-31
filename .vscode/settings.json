@@ -1,0 +1,9 @@
+{
+    "azurite.location": "/workspaces/aswa-cruds/.azurite",
+    "azureFunctions.deploySubpath": "api",
+    "azureFunctions.postDeployTask": "npm install",
+    "azureFunctions.projectLanguage": "TypeScript",
+    "azureFunctions.projectRuntime": "~3",
+    "azureFunctions.preDeployTask": "npm prune",
+    "debug.internalConsoleOptions": "neverOpen",
+}

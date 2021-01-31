@@ -1,0 +1,21 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Launch Edge",
+      "request": "launch",
+      "type": "edge",
+      "version": "dev",
+      "url": "http://localhost:3000",
+      "webRoot": "${workspaceFolder}/client"
+    },
+  
+    {
+      "name": "Attach to Node Functions",
+      "type": "node",
+      "request": "attach",
+      "port": 9229,
+      "preLaunchTask": "func: host start"
+    }
+  ]
+}
