@@ -1,25 +1,27 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
+import { IconButton, Layer, Text } from '@fluentui/react';
 import { Search } from "./Search";
 
+// import { MsalProvider } from "@azure/msal-react";
+// import { Configuration,  PublicClientApplication } from "@azure/msal-browser";
+
 export const Header = () => {
+  const history = useHistory();
+  const handleOnClick = (target: string) => {
+    history.push('/');
+  }
+
   return (
     <header>
-      <nav>
-        <img src="/logo192.png" alt="Great Items" height="90" />
-        <ul>
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>
-            <Search />
-          </li>
-		  <li><Link to="/item">+</Link></li>
-          <li>
-            <a href="/login">Login</a>
-          </li>
-        </ul>
-      </nav>
+      <div>
+        <Text>MarkDown KnowledgeBase</Text>
+        <IconButton iconProps={{ iconName: 'Home' }} title="Home" ariaLabel="Home" onClick={() => handleOnClick('/')} />
+        <div style={{ float: "right" }}>
+          <Search />
+          <Text>Login</Text>            
+        </div>
+      </div>
     </header>
   );
 };

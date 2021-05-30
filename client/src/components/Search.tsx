@@ -1,27 +1,18 @@
 import React, { useState, FormEventHandler } from "react";
 import { Link, useHistory } from "react-router-dom";
+import { SearchBox } from '@fluentui/react';
 
 export const Search = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const history = useHistory();
 
-  const handleSubmit: FormEventHandler = (event) => {
-    event.preventDefault();
-    history.push({ pathname: "/search", search: `?search=${searchQuery}` });
-  };
-
-  const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchQuery(e.target.value);
-  };
+  const handleSearch = (searchQuery: string) => {
+    history.push({ pathname: "/search", search: `?search=${searchQuery}` });    
+  }
 
   return (
     <div>
-      <form onSubmit={(event) => handleSubmit(event)}>
-        <input onChange={handleInput} type="textbox" width="10"></input>
-        <Link to={{ pathname: "/search", search: `?search=${searchQuery}` }}>
-          🧐
-        </Link>
-      </form>
+      <SearchBox placeholder="Search" onSearch={searchQuery => handleSearch(searchQuery)} />
     </div>
   );
 };

@@ -5,7 +5,7 @@ import { Item } from "@api/types/Item";
 export const SearchResultItem: React.FC<{ item: Item }> = ({ item }) => {
   return (
     <div>
-      <Link to={`/item/${item.id}`}>Id: {item.id} - Name: {item.name}</Link>
+      <Link to={`/item/${item.id}`}>Id: {item.id} - Title: {item.title}</Link>
     </div>
   );
 };

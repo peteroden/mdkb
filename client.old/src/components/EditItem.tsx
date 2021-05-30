@@ -47,8 +47,8 @@ export const EditItem: React.FC<{
         Name:
         <input
           type="text"
-          value={editedItem.name}
-          onChange={(event) => handleChange("name", event.target.value)}
+          value={editedItem.title}
+          onChange={(event) => handleChange("title", event.target.value)}
         />
       </label>
       <button type="submit">Save</button>

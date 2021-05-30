@@ -13,7 +13,7 @@ export const ReadItem: React.FC<{
     <div>
       <hr />
       <div>ID: {item.id}</div>
-      <div>Name: {item.name}</div>
+      <div>Title: {item.title}</div>
       <button onClick={handleEditClick}>Edit</button>
     </div>
   );
