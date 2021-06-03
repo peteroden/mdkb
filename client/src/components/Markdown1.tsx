@@ -3,6 +3,14 @@ import ReactMarkdown from 'react-markdown'
 
 export const Markdown1 = () => {
     return (
-        <ReactMarkdown># This is a heading</ReactMarkdown>
+        <ReactMarkdown>{`
+# Heading 1
+
+Content 1
+
+## Heading 2
+
+Content 2
+        `}</ReactMarkdown>
     );
 }

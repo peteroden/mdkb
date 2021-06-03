@@ -6,9 +6,8 @@ import { Header } from "./components/Header";
 import { Footer } from "./components/Footer";
 import { LandingPage } from "./components/LandingPage";
 import { Markdown1 } from './components/Markdown1';
-
-// import { SearchNavigator } from "./components/SearchNavigator";
-// import { Crud } from "./components/Crud";
+import { Crud } from './components/Crud';
+import { SearchNavigator } from "./components/SearchNavigator";
 
 function App() {
   initializeIcons();
@@ -20,9 +19,9 @@ function App() {
         <Switch>
           <Route exact path="/" component={LandingPage} />
           <Route exact path="/markdown" component={ Markdown1 } />
-          {/* <Route path="/search" component={SearchNavigator} />
+          <Route path="/search" component={SearchNavigator} />
 		      <Route exact path="/item" component={Crud} />
-          <Route path="/item/:id" component={Crud} /> */}
+          <Route path="/item/:id" component={Crud} />
         </Switch>
         <Footer />
       </Router>

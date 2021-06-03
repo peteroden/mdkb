@@ -1,6 +1,6 @@
 import React from "react";
-import { Link, useHistory } from "react-router-dom";
-import { IconButton, Layer, Text } from '@fluentui/react';
+import { useHistory } from "react-router-dom";
+import { IconButton, Text, Stack, IStackStyles} from '@fluentui/react';
 import { Search } from "./Search";
 
 // import { MsalProvider } from "@azure/msal-react";
@@ -12,14 +12,33 @@ export const Header = () => {
     history.push('/');
   }
 
+  const stackStyles: IStackStyles = {
+    root: {
+      overflow: 'hidden',
+      width: '100%',
+    }
+  }
+
   return (
     <header>
       <div>
-        <Text>MarkDown KnowledgeBase</Text>
-        <IconButton iconProps={{ iconName: 'Home' }} title="Home" ariaLabel="Home" onClick={() => handleOnClick('/')} />
+        <Stack horizontal styles={stackStyles} horizontalAlign="space-between">
+          <Stack horizontal>
+          <Stack.Item align="start" >
+            <Text>MarkDown KnowledgeBase</Text>
+          </Stack.Item>
+          <Stack.Item>
+            <IconButton iconProps={{ iconName: 'Home' }} title="Home" ariaLabel="Home" onClick={() => handleOnClick('/')} />
+          </Stack.Item>
+          </Stack>
+          <Stack.Item align="end">
+            <Search />
+          </Stack.Item>
+          <Stack.Item>
+            <Text>Login</Text>
+          </Stack.Item>
+        </Stack>
         <div style={{ float: "right" }}>
-          <Search />
-          <Text>Login</Text>            
         </div>
       </div>
     </header>
