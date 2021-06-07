@@ -2,12 +2,25 @@ terraform {
   required_providers {
     azurerm = {
       source  = "hashicorp/azurerm"
-      version = ">=2.61"
+    }
+    github = {
+      source = "integrations/github"
     }
   }
 }
 
-resource "azurerm_resource_group" "example" {
-  name     = "example-resources"
-  location = "West Europe"
+provider "azurerm" {
+  features {
+    
+  }
+}
+
+resource "random_string" "mdkb" {
+  length           = 3
+  special          = false
+}
+
+resource "azurerm_resource_group" "mdkb" {
+  name     = "mdkb${random_string.mdkb.id}"
+  location = "East US"
 }

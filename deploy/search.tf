@@ -1,42 +1,35 @@
 locals {
-  search_service_name    = "srch-${local.name}"
+  search_service_name    = "${azurerm_resource_group.mdkb.name}-srch"
 
   index_name             = "${local.search_service_name}-index"
   data_source_name       = "${local.search_service_name}-data"
   indexer_name           = "${local.search_service_name}-indexer"
 
-  skillset_parameters = {
-    skillset_name     = local.skillset_name
-    function_app_name = azurerm_function_app.instance.name
-    function_key      = azurerm_template_deployment.function_key.outputs["function_key"]
-  }
-
-  raw_index_config = templatefile("${path.module}/../search/index.json", { index_name = local.index_name })
+  raw_index_config = templatefile("${path.module}/search/index.json", { index_name = local.index_name })
   index_config     = replace(replace(local.raw_index_config, "\n", " "), "\"", "\\\"")
 
   data_source_parameters = {
     data_source_name = local.data_source_name
-    storage_id       = azurerm_storage_account.instance.id
+    storage_id       = azurerm_storage_account.mdkb.id
     container_name   = var.search_container_name
   }
-  raw_data_source_config = templatefile("${path.module}/../search/datasource.json", local.data_source_parameters)
+  raw_data_source_config = templatefile("${path.module}/search/datasource.json", local.data_source_parameters)
   data_source_config     = replace(replace(local.raw_data_source_config, "\n", " "), "\"", "\\\"")
 
   indexer_parameters = {
     indexer_name     = local.indexer_name
     data_source_name = local.data_source_name
     index_name       = local.index_name
-    skillset_name    = local.skillset_name
   }
 
-  raw_indexer_config = templatefile("${path.module}/../search/indexer.json", local.indexer_parameters)
+  raw_indexer_config = templatefile("${path.module}/search/indexer.json", local.indexer_parameters)
   indexer_config     = replace(replace(local.raw_indexer_config, "\n", " "), "\"", "\\\"")
 }
 
-resource "azurerm_search_service" "instance" {
+resource "azurerm_search_service" "mdkb" {
   name                = local.search_service_name
-  resource_group_name = azurerm_resource_group.instance.name
-  location            = azurerm_resource_group.instance.location
+  resource_group_name = azurerm_resource_group.mdkb.name
+  location            = azurerm_resource_group.mdkb.location
   sku                 = "standard"
 
   identity {
@@ -52,7 +45,7 @@ resource "null_resource" "search_data_source" {
   provisioner "local-exec" {
     command = <<EOF
       curl --location --request PUT "https://${local.search_service_name}.search.windows.net/datasources/${local.data_source_name}?api-version=2019-05-06" \
-        --header "api-key: ${azurerm_search_service.instance.primary_key}" \
+        --header "api-key: ${azurerm_search_service.mdkb.primary_key}" \
         --header "Content-Type: application/json" \
         --data "${local.data_source_config}"
     EOF
@@ -71,7 +64,7 @@ resource "null_resource" "search_index" {
   provisioner "local-exec" {
     command = <<EOF
       curl --location --request PUT "https://${local.search_service_name}.search.windows.net/indexes/${local.index_name}?api-version=2019-05-06" \
-        --header "api-key: ${azurerm_search_service.instance.primary_key}" \
+        --header "api-key: ${azurerm_search_service.mdkb.primary_key}" \
         --header "Content-Type: application/json" \
         --data "${local.index_config}"
     EOF
@@ -95,6 +88,5 @@ resource "null_resource" "search_indexer" {
   depends_on = [
     null_resource.search_data_source,
     null_resource.search_index,
-    null_resource.search_skillset
   ]
 }

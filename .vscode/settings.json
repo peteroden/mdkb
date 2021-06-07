@@ -6,4 +6,10 @@
     "azureFunctions.projectRuntime": "~3",
     "azureFunctions.preDeployTask": "npm prune",
     "debug.internalConsoleOptions": "neverOpen",
+    "terraform-ls.experimentalFeatures": {
+        "validateOnSave": true,
+    },
+    "[terraform]": {
+        "editor.formatOnSave": true,
+    }
 }

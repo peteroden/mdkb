@@ -1,7 +1,6 @@
 {
     "name": "${indexer_name}",
     "dataSourceName": "${data_source_name}",
-    "skillsetName": "${skillset_name}",
     "targetIndexName": "${index_name}",
     "disabled": null,
     "schedule": {

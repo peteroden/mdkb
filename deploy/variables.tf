@@ -6,7 +6,7 @@ variable "name" {
 
 variable "location" {
   type        = string
-  default     = "westus"
+  default     = "eastus"
   description = "The proper Azure location name for deployed resources."
 }
 
